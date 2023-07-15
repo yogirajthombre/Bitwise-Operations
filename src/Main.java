@@ -31,6 +31,17 @@ public class Main {
         System.out.println("Find number of set bits ...");
         int findSetBits = findNumberOfSetBits(9);
         System.out.println(findSetBits);
+        System.out.println("Find number of set bits with less Time Complexity ...");
+        int findSetBitsLessTc = findNumberOfSetBitsUsingLessTc(5);
+        System.out.println(findSetBitsLessTc);
+        System.out.println("Find x or of numbers ...");
+        int xOrOfAllNumbers = findXorOfNumbers(5);
+        System.out.println(xOrOfAllNumbers);
+        System.out.println("Find x or of numbers normally ...");
+        int xOrOfAllNumbersNormally = findXorOfNumbersNormally(9);
+        System.out.println(xOrOfAllNumbersNormally);
+        System.out.println("Compare x or of numbers normally and iteratively...");
+        System.out.println(xOrOfAllNumbers == xOrOfAllNumbersNormally);
     }
 
     private static boolean isEvenNumber(int n){
@@ -106,6 +117,9 @@ public class Main {
         return op;
     }
 
+    /**
+     Time complexity is O(n)
+     */
     private static int findNumberOfSetBits(int n) {
         /// 10
         int numberOfSetBits = 0;
@@ -116,6 +130,47 @@ public class Main {
             n = n >> 1;
         }
         return numberOfSetBits;
+    }
+
+    private static int findNumberOfSetBitsUsingLessTc(int n) {
+        /// 101
+        /// 100 - 4
+        /// 100 
+        /// 
+        int numberOfSetBits = 0;
+        while (n > 0){
+            n = n & (n-1);
+            numberOfSetBits++;
+        }
+        return numberOfSetBits;
+    }
+
+    private static int findXorOfNumbers(int i) {
+        // 0  - 0
+        // 01 - 1 - 00^01 = 1
+        // 10 - 2 - 01 ^ 10 = 11
+        // 11 - 3 - 11 ^ 11 = 0
+        // 100 - 4 - 000 ^ 100 = 100
+        // 101 - 5 - 100 ^ 101 = 001
+        if (i%4 == 0){
+            return i;
+        }else if (i%4 == 3){
+            return 0;
+        }else if (i%4 == 2){
+            return i+1;
+        }else if (i%4 == 1){
+            return 1;
+        }else {
+            return -1;
+        }
+    }
+
+    private static int findXorOfNumbersNormally(int n) {
+        int op = 0;
+        for (int x = 0;x<=n;x++){
+            op = op^x;
+        }
+        return op;
     }
 
 }
